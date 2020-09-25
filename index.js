@@ -7,7 +7,7 @@ airportIataAutocomplete.initialize(_.map(airports, function(a) {
   return [a.iata.toLowerCase(), a];
 }));
 
-airports = _.indexBy(airports, function(a) {
+airports = _.keyBy(airports, function(a) {
   return a.iata;
 });
 
@@ -35,9 +35,13 @@ module.exports.searchByAirportName = function(name) {
 
   var iatas = _.pluck(iataResults, 'iata');
 
+  _.mixin({
+    pluck: _.map
+  });
+
   nameResults = _.chain(airports)
     .filter(function(v) {
-      return !_.contains(iatas, v.iata) && v.name.toLowerCase().indexOf(name) > -1
+      return !_.includes(iatas, v.iata) && v.name.toLowerCase().indexOf(name) > -1
     })
     .value()
 
