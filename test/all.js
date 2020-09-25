@@ -14,12 +14,12 @@ describe('all', function() {
     var row = index.lookupByIataCode('EWR')
     expect(row.iata).to.equal('EWR');
     expect(row.city).to.equal('Newark');
-    expect(row.name).to.equal('Newark Liberty Intl (EWR)');
+    expect(row.name).to.equal('Newark Liberty International Airport (EWR)');
   })
 
   it('should search up an airport by name', function() {
     var rows = index.searchByAirportName('newark')
-    expect(_.pluck(rows, "iata")).to.contain("EWR")
+    expect(_.map(rows, "iata")).to.contain("EWR")
   });
 
   it('should match iata before name', function() {
